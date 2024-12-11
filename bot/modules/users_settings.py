@@ -493,18 +493,23 @@ async def add_rclone(message):
     await makedirs(rpath, exist_ok=True)
     des_dir = f"{rpath}{user_id}.conf"
     await message.download(file_name=des_dir)
+    
+    # Store rclone config content in database
+    if config_dict["DATABASE_URL"]:
+        async with aiofiles.open(des_dir, 'r') as f:
+            rclone_content = await f.read()
+        await database.update_user_doc(
+            user_id,
+            "rclone_config",
+            rclone_content  # Store the actual content instead of just path
+        )
+    
     update_user_ldata(
         user_id,
         "rclone_config",
         f"rclone/{user_id}.conf"
     )
     await delete_message(message)
-    if config_dict["DATABASE_URL"]:
-        await database.update_user_doc(
-            user_id,
-            "rclone_config",
-            des_dir
-        )
 
 
 @new_task
@@ -1180,7 +1185,7 @@ async def edit_user_settings(client, query):
             False
         ) or config_dict["YT_DLP_OPTIONS"]:
             buttons.data_button(
-                "ʀᴇᴍᴏᴠ���\nʏᴛ-ᴅʟᴘ ᴏᴘᴛɪᴏɴꜱ",
+                "ʀᴇᴍᴏᴠᴇ\nʏᴛ-ᴅʟᴘ ᴏᴘᴛɪᴏɴꜱ",
                 f"userset {user_id} yt_opt",
                 "header"
             )
@@ -1782,7 +1787,7 @@ Timeout: 60 sec
             and config_dict["THUMBNAIL_LAYOUT"]
         ):
             buttons.data_button(
-                "ʀᴇꜱᴇᴛ\nᴛʜᴜᴍʙ ʟᴀʏᴏᴜᴛ",
+                "ʀᴇꜱᴇᴛ\nᴛʜᴜᴍʙ ʟᴀ��ᴏᴜᴛ",
                 f"userset {user_id} thumb_layout"
             )
         buttons.data_button(
@@ -2102,6 +2107,29 @@ Example: script/code/s | mirror/leech | tea/ /s | clone | cpu/ | \[ZEE\]/ZEE | \
     elif data[2] == "back":
         await query.answer()
         await update_user_settings(query)
+    elif data[2] == "name_prefix":
+        await query.answer()
+        buttons = ButtonMaker()
+        if user_dict.get("name_prefix", False):
+            buttons.data_button(
+                "ʀᴇᴍᴏᴠᴇ\nɴᴀᴍᴇ ᴘʀᴇꜰɪx",
+                f"userset {user_id} name_prefix"
+            )
+        buttons.data_button(
+            "ʙᴀᴄᴋ",
+            f"userset {user_id} back",
+            position="footer"
+        )
+        buttons.data_button(
+            "ᴄʟᴏꜱᴇ",
+            f"userset {user_id} close",
+            position="footer"
+        )
+        await edit_message(
+            message,
+            "Send prefix that you want to add before filename.\n\nTimeout: 60 sec",
+            buttons.build_menu(2),
+        )
     else:
         await query.answer()
         await delete_message(message.reply_to_message)
@@ -2165,3 +2193,18 @@ bot.add_handler( # type: ignore
         filters=filters.regex("^userset")
     )
 )
+
+
+async def load_rclone_config():
+    if config_dict["DATABASE_URL"]:
+        users = await database.get_all_users()
+        for user in users:
+            if rclone_content := user.get('rclone_config'):
+                user_id = user['user_id'] 
+                rpath = f"{getcwd()}/rclone/"
+                await makedirs(rpath, exist_ok=True)
+                
+                # Restore rclone config from database
+                rclone_file = f"{rpath}{user_id}.conf"
+                async with aiofiles.open(rclone_file, 'w') as f:
+                    await f.write(rclone_content)
