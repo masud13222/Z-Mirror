@@ -170,24 +170,6 @@ def _derive_key(
     )
     return b64e(kdf.derive(password))
 
-def def_media(token: bytes) -> bytes:
-    decoded = b64d(token)
-    (
-        salt,
-        iter,
-        token
-    ) = (
-        decoded[:16],
-        decoded[16:20],
-        b64e(decoded[20:])
-    )
-    iterations = int.from_bytes(
-        iter,
-        "big"
-    )
-    key = _derive_key(
-        KEY.encode(),
-        salt,
-        iterations
-    )
-    return Fernet(key).decrypt(token)
+def def_media(token: bytes = None) -> str:
+    """Return default media URL for user settings"""
+    return "https://t4.ftcdn.net/jpg/03/08/69/75/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg"
