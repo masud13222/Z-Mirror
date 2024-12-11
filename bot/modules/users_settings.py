@@ -1046,7 +1046,7 @@ async def edit_user_settings(client, query):
 
 <b>╭─《 📝 CREATE CONFIG 》</b>
 <b>├ Method 1 :</b> <a href='https://colab.research.google.com/drive/1_Elk5LmH0jCrtsFn-3ai1aU1GD2cWAJx'>Google Colab</a>
-<b>╰ Method 2 :</b> <code>/rclone</code> command
+<b>╰ Method 2 :</b> <code>Sala Aro Method cas</code> command
 """
         await edit_message(
             message,
