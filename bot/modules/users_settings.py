@@ -494,15 +494,12 @@ async def add_rclone(message):
     des_dir = f"{rpath}{user_id}.conf"
     await message.download(file_name=des_dir)
     
-    # Store rclone config content in database
+    # Read and store the actual rclone config content
+    async with aiofiles.open(des_dir, 'r') as f:
+        rclone_content = await f.read()
+        
     if config_dict["DATABASE_URL"]:
-        async with aiofiles.open(des_dir, 'r') as f:
-            rclone_content = await f.read()
-        await database.update_user_doc(
-            user_id,
-            "rclone_config",
-            rclone_content  # Store the actual content instead of just path
-        )
+        await database.update_user_doc(user_id, "rclone_config", rclone_content)
     
     update_user_ldata(
         user_id,
@@ -869,7 +866,7 @@ async def edit_user_settings(client, query):
             equal_splits = "Enabled"
         else:
             buttons.data_button(
-                "ᴇɴᴀʙʟᴇ\nᴇQᴜᴀʟ ꜱᴘʟɪᴛꜱ",
+                "ᴇɴᴀʙʟᴇ\nᴇQ���ᴀʟ ꜱᴘʟɪᴛꜱ",
                 f"userset {user_id} equal_splits true"
             )
             equal_splits = "Disabled"
@@ -1787,7 +1784,7 @@ Timeout: 60 sec
             and config_dict["THUMBNAIL_LAYOUT"]
         ):
             buttons.data_button(
-                "ʀᴇꜱᴇᴛ\nᴛʜᴜᴍʙ ʟᴀ��ᴏᴜᴛ",
+                "ʀᴇꜱᴇᴛ\nᴛʜᴜᴍʙ ʟᴀʏᴏᴜᴛ",
                 f"userset {user_id} thumb_layout"
             )
         buttons.data_button(
@@ -2197,14 +2194,13 @@ bot.add_handler( # type: ignore
 
 async def load_rclone_config():
     if config_dict["DATABASE_URL"]:
-        users = await database.get_all_users()
+        users = await database.get_user_data()  # Get all users data
         for user in users:
             if rclone_content := user.get('rclone_config'):
                 user_id = user['user_id'] 
                 rpath = f"{getcwd()}/rclone/"
                 await makedirs(rpath, exist_ok=True)
                 
-                # Restore rclone config from database
                 rclone_file = f"{rpath}{user_id}.conf"
                 async with aiofiles.open(rclone_file, 'w') as f:
                     await f.write(rclone_content)
