@@ -135,56 +135,91 @@ async def log(_, message):
 
 
 help_string = f"""
-<b>NOTE: Click on any CMD to see more detalis.</b>
+<b>╭─《 🤖 BOT COMMANDS 》</b>
 
-<b>Use Mirror commands for uploading to Cloud Drive:</b>
-/{BotCommands.MirrorCommand[0]} or /{BotCommands.MirrorCommand[1]}: Start mirroring to cloud.
-/{BotCommands.QbMirrorCommand[0]} or /{BotCommands.QbMirrorCommand[1]}: Start Mirroring to cloud using qBittorrent.
-/{BotCommands.YtdlCommand[0]} or /{BotCommands.YtdlCommand[1]}: Mirror yt-dlp supported link.
+<b>╭─《 📤 MIRROR COMMANDS 》</b>
+<b>├ /{BotCommands.MirrorCommand[0]}</b> or <b>/{BotCommands.MirrorCommand[1]}</b>
+<b>├</b> Start mirroring to cloud
+<b>├ /{BotCommands.QbMirrorCommand[0]}</b> or <b>/{BotCommands.QbMirrorCommand[1]}</b>
+<b>├</b> Start Mirroring using qBittorrent
+<b>├ /{BotCommands.YtdlCommand[0]}</b> or <b>/{BotCommands.YtdlCommand[1]}</b>
+<b>╰</b> Mirror yt-dlp supported link
 
-<b>Use Leech commands for uploading to Telegram:</b>
-/{BotCommands.LeechCommand[0]} or /{BotCommands.LeechCommand[1]}: Start leeching to Telegram.
-/{BotCommands.QbLeechCommand[0]} or /{BotCommands.QbLeechCommand[1]}: Start leeching using qBittorrent.
-/{BotCommands.YtdlLeechCommand[0]} or /{BotCommands.YtdlLeechCommand[1]}: Leech yt-dlp supported link.
+<b>╭─《 📥 LEECH COMMANDS 》</b>
+<b>├ /{BotCommands.LeechCommand[0]}</b> or <b>/{BotCommands.LeechCommand[1]}</b>
+<b>├</b> Start leeching to Telegram
+<b>├ /{BotCommands.QbLeechCommand[0]}</b> or <b>/{BotCommands.QbLeechCommand[1]}</b>
+<b>├</b> Start leeching using qBittorrent
+<b>├ /{BotCommands.YtdlLeechCommand[0]}</b> or <b>/{BotCommands.YtdlLeechCommand[1]}</b>
+<b>╰</b> Leech yt-dlp supported link
 
-<b>Gdrive only commands:</b>
-/{BotCommands.CloneCommand} [drive_url]: Copy file/folder to Google Drive.
-/{BotCommands.CountCommand} [drive_url]: Count file/folder of Google Drive.
-/{BotCommands.ListCommand} [query]: Search in Google Drive(s).
-/{BotCommands.DeleteCommand} [drive_url]: Delete file/folder from Google Drive (Only Owner & Sudo).
+<b>╭─《 ☁️ GDRIVE COMMANDS 》</b>
+<b>├ /{BotCommands.CloneCommand}</b> [drive_url]
+<b>├</b> Copy file/folder to Google Drive
+<b>├ /{BotCommands.CountCommand}</b> [drive_url]
+<b>├</b> Count file/folder of Google Drive
+<b>├ /{BotCommands.ListCommand}</b> [query]
+<b>├</b> Search in Google Drive(s)
+<b>├ /{BotCommands.DeleteCommand}</b> [drive_url]
+<b>╰</b> Delete file from Drive [ADMIN]
 
-<b>Settings:</b>
-/{BotCommands.UserSetCommand[0]} or /{BotCommands.UserSetCommand[1]} [query]: Users settings.
-/{BotCommands.BotSetCommand[0]} or /{BotCommands.BotSetCommand[1]} [query]: Bot settings.
-/{BotCommands.UsersCommand}: show users settings (Only Owner & Sudo).
+<b>╭─《 🛠️ BOT SETTINGS 》</b>
+<b>├ /{BotCommands.UserSetCommand[0]}</b> or <b>/{BotCommands.UserSetCommand[1]}</b>
+<b>├</b> User Settings Panel
+<b>├ /{BotCommands.BotSetCommand[0]}</b> or <b>/{BotCommands.BotSetCommand[1]}</b>
+<b>├</b> Bot Settings Panel [ADMIN]
+<b>├ /{BotCommands.UsersCommand}</b>
+<b>╰</b> Show Users Settings [ADMIN]
 
-<b>Cancel Tasks:</b>
-/{BotCommands.CancelTaskCommand[0]} or /{BotCommands.CancelTaskCommand[1]} [gid]: Cancel task by gid or reply.
-/{BotCommands.CancelAllCommand} [query]: Cancel all [status] tasks.
+<b>╭─《 ⚡️ TASK COMMANDS 》</b>
+<b>├ /{BotCommands.StatusCommand[0]}</b>
+<b>├</b> Show Downloads Status
+<b>├ /{BotCommands.StatsCommand[0]}</b>
+<b>├</b> Show Bot Stats [ADMIN]
+<b>├ /{BotCommands.CancelTaskCommand[0]}</b> or <b>/{BotCommands.CancelTaskCommand[1]}</b>
+<b>├</b> Cancel task by gid/reply
+<b>├ /{BotCommands.CancelAllCommand}</b>
+<b>╰</b> Cancel all tasks [ADMIN]
 
-/{BotCommands.SelectCommand}: Select files from torrents by gid or reply.
-/{BotCommands.SearchCommand} [query]: Search for torrents with API.
-/{BotCommands.PingCommand[0]}: Check how long it takes to Ping the Bot (Only Owner & Sudo).
-/{BotCommands.ForceStartCommand[0]} or /{BotCommands.ForceStartCommand[1]} [gid]: Force start task by gid or reply.
+<b>╭─《 🔍 MISC COMMANDS 》</b>
+<b>├ /{BotCommands.SelectCommand}</b>
+<b>├</b> Select files from torrents
+<b>├ /{BotCommands.SearchCommand}</b>
+<b>├</b> Search for torrents
+<b>├ /{BotCommands.PingCommand[0]}</b>
+<b>├</b> Check Bot Alive [ADMIN]
+<b>├ /{BotCommands.ForceStartCommand[0]}</b> or <b>/{BotCommands.ForceStartCommand[1]}</b>
+<b>╰</b> Force Start Task
 
-/{BotCommands.StatusCommand[0]}: Shows a status of all the downloads.
-/{BotCommands.StatsCommand[0]}: Show stats of the machine where the bot is hosted in.
+<b>╭─《 🔐 AUTH COMMANDS 》</b>
+<b>├ /{BotCommands.AuthorizeCommand}</b>
+<b>├</b> Auth chat/user [ADMIN]
+<b>├ /{BotCommands.UnAuthorizeCommand}</b>
+<b>├</b> Unauth chat/user [ADMIN]
+<b>├ /{BotCommands.AddSudoCommand}</b>
+<b>├</b> Add Sudo User [OWNER]
+<b>├ /{BotCommands.RmSudoCommand}</b>
+<b>╰</b> Remove Sudo [OWNER]
 
-<b>Authentication:</b>
-/{BotCommands.AuthorizeCommand}: Authorize a chat or a user to use the bot (Only Owner & Sudo).
-/{BotCommands.UnAuthorizeCommand}: Unauthorize a chat or a user to use the bot (Only Owner & Sudo).
-/{BotCommands.AddSudoCommand}: Add sudo user (Only Owner).
-/{BotCommands.RmSudoCommand}: Remove sudo users (Only Owner).
+<b>╭─《 🛠️ MAINTAINANCE 》</b>
+<b>├ /{BotCommands.RestartCommand[0]}</b>
+<b>├</b> Restart Bot [ADMIN]
+<b>├ /{BotCommands.LogCommand}</b>
+<b>├</b> Get Bot Logs [ADMIN]
+<b>├ /{BotCommands.ShellCommand}</b>
+<b>├</b> Run Shell CMD [OWNER]
+<b>├ /{BotCommands.AExecCommand}</b>
+<b>├</b> Run Async Func [OWNER]
+<b>├ /{BotCommands.ExecCommand}</b>
+<b>├</b> Run Sync Func [OWNER]
+<b>├ /{BotCommands.ClearLocalsCommand}</b>
+<b>╰</b> Clear Locals [OWNER]
 
-<b>Maintainance:</b>
-/{BotCommands.RestartCommand[0]}: Restart and update the bot (Only Owner & Sudo).
-/{BotCommands.LogCommand}: Get a log file of the bot. Handy for getting crash reports (Only Owner & Sudo).
-/{BotCommands.ShellCommand}: Run shell commands (Only Owner).
-/{BotCommands.AExecCommand}: Exec async functions (Only Owner).
-/{BotCommands.ExecCommand}: Exec sync functions (Only Owner).
-/{BotCommands.ClearLocalsCommand}: Clear {BotCommands.AExecCommand} or {BotCommands.ExecCommand} locals (Only Owner).
+<b>╭─《 📰 RSS FEED 》</b>
+<b>╰ /{BotCommands.RssCommand}</b>
+<b>  └</b> RSS Menu
 
-/{BotCommands.RssCommand}: RSS Menu.
+<b>📝 Note:</b> Click on any command to see more details.
 """
 
 @new_task
