@@ -493,20 +493,18 @@ async def add_rclone(message):
     await makedirs(rpath, exist_ok=True)
     des_dir = f"{rpath}{user_id}.conf"
     await message.download(file_name=des_dir)
-    
-    # Read and store the actual rclone config content
-    async with aiofiles.open(des_dir, 'r') as f:
-        rclone_content = await f.read()
-        
-    if config_dict["DATABASE_URL"]:
-        await database.update_user_doc(user_id, "rclone_config", rclone_content)
-    
     update_user_ldata(
         user_id,
         "rclone_config",
         f"rclone/{user_id}.conf"
     )
     await delete_message(message)
+    if config_dict["DATABASE_URL"]:
+        await database.update_user_doc(
+            user_id,
+            "rclone_config",
+            des_dir
+        )
 
 
 @new_task
@@ -866,7 +864,7 @@ async def edit_user_settings(client, query):
             equal_splits = "Enabled"
         else:
             buttons.data_button(
-                "ᴇɴᴀʙʟᴇ\nᴇQ���ᴀʟ ꜱᴘʟɪᴛꜱ",
+                "ᴇɴᴀʙʟᴇ\nᴇQᴜᴀʟ ꜱᴘʟɪᴛꜱ",
                 f"userset {user_id} equal_splits true"
             )
             equal_splits = "Disabled"
@@ -2190,17 +2188,3 @@ bot.add_handler( # type: ignore
         filters=filters.regex("^userset")
     )
 )
-
-
-async def load_rclone_config():
-    if config_dict["DATABASE_URL"]:
-        users = await database.get_user_data()  # Get all users data
-        for user in users:
-            if rclone_content := user.get('rclone_config'):
-                user_id = user['user_id'] 
-                rpath = f"{getcwd()}/rclone/"
-                await makedirs(rpath, exist_ok=True)
-                
-                rclone_file = f"{rpath}{user_id}.conf"
-                async with aiofiles.open(rclone_file, 'w') as f:
-                    await f.write(rclone_content)
