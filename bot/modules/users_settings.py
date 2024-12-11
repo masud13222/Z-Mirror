@@ -424,7 +424,7 @@ async def update_user_settings(query):
     media = (
         f"Thumbnails/{user_id}.jpg"
         if os_path.exists(f"Thumbnails/{user_id}.jpg")
-        else f"{def_media(JAVA.encode()).decode()}"
+        else def_media()
     )
     await query.message.edit_media(
         media=InputMediaPhoto(
@@ -452,7 +452,7 @@ async def user_settings(client, message):
     media = (
         f"Thumbnails/{user_id}.jpg"
         if os_path.exists(f"Thumbnails/{user_id}.jpg")
-        else f"{def_media(JAVA.encode()).decode()}"
+        else def_media()
     )
     usetMsg = await message.reply_photo(
         media,
@@ -1235,7 +1235,7 @@ or use this <a href='https://t.me/mltb_official_channel/177'>script</a> to conve
                 f"userset {user_id} split_size"
             )
         buttons.data_button(
-            "ʙᴀᴄᴋ",
+            "ʙᴀcᴋ",
             f"userset {user_id} leech",
             position="footer"
         )
