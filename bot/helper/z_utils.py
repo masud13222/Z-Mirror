@@ -172,4 +172,4 @@ def _derive_key(
 
 def def_media(token: bytes = None) -> str:
     """Return default media URL for user settings"""
-    return "https://t4.ftcdn.net/jpg/03/08/69/75/360_F_308697506_9dsBYHXm9FwuW0qcEqimAEXUvzTwfzwe.jpg"
+    return "https://i.ibb.co.com/0r1nsPs/Untitled-design.jpg"
