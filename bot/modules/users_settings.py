@@ -1040,10 +1040,13 @@ async def edit_user_settings(client, query):
         else:
             rccpath = "None"
         text = f"""
-<b><u>Rclone Settings for {name}</u></b>
+<b>╭─《 ⚡️ RCLONE DETAILS 》</b>
+<b>├ Config :</b> <code>{rccmsg}</code>
+<b>╰ Path :</b> <code>{rccpath}</code>
 
-<code>Rclone Config :</code> <b>{rccmsg}</b>
-<code>Rclone Path   :</code> <b>{rccpath}</b>
+<b>╭─《 📝 CREATE CONFIG 》</b>
+<b>├ Method 1 :</b> <a href='https://colab.research.google.com/drive/1_Elk5LmH0jCrtsFn-3ai1aU1GD2cWAJx'>Google Colab</a>
+<b>╰ Method 2 :</b> <code>/rclone</code> command
 """
         await edit_message(
             message,
@@ -1177,7 +1180,7 @@ async def edit_user_settings(client, query):
             False
         ) or config_dict["YT_DLP_OPTIONS"]:
             buttons.data_button(
-                "ʀᴇᴍᴏᴠᴇ\nʏᴛ-ᴅʟᴘ ᴏᴘᴛɪᴏɴꜱ",
+                "ʀᴇᴍᴏᴠ���\nʏᴛ-ᴅʟᴘ ᴏᴘᴛɪᴏɴꜱ",
                 f"userset {user_id} yt_opt",
                 "header"
             )
